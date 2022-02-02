@@ -2,7 +2,6 @@
 #define T_ALGORITMOS_ORDENACAO
 
 #include <stdio.h>
-#include <stdlib.h>
 
 #define TRUE 1
 
