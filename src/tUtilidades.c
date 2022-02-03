@@ -1,4 +1,5 @@
 #include "../include/tUtilidades.h"
+#include "../include/tAlgoritmosOrdenacao.h"
 #include "../include/tRelatorio.h"
 
 
@@ -26,7 +27,7 @@ int qtdLetras(char *entrada){
 }
 
 char *inicializaVetorChar(int tam){
-    char *vet = (char *) malloc(sizeof(char)*tam);
+    char *vet = (char *) calloc(tam+1,sizeof(char));
     if(vet == NULL){
         printf("Erro na alocação do vetor de char!\n");
         exit(1);
@@ -55,6 +56,7 @@ void preencheVetorNum(char *vetNum, char *entrada){
             j++;
         }
     }
+    vetNum[j] = '\0';
 }
 
 void preencheVetorLetras(char *vetLetras, char *entrada){
@@ -65,6 +67,7 @@ void preencheVetorLetras(char *vetLetras, char *entrada){
             j++;
         }
     }
+    vetLetras[j] = '\0';
 }
 
 tVetorOrdenavel *inicializaEstruturaDoVetor(char *caminho){
@@ -93,9 +96,10 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
     int *trocas, *comp;
     trocas = inicializaVetorInt(1);
     comp = inicializaVetorInt(1);
-    *trocas = *comp = 0;
+    *trocas = 0;
+    *comp = 0;
     //roda o algoritmo
-    for(int i=0; i<strlen(vetLetras) ;i++){
+    for(int i=0; i < strlen(vetLetras) ;i++){
         time_t t_init,t_final;
         t_init = time(NULL);
         switch (vetLetras[i]){
@@ -103,10 +107,10 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
                 //executa todos os métodos
                 break;
             case 's':
-                //selec
+                selectionsort(tVet->vet,tVet->tam,t,comp,trocas);
                 break;
             case 'i':
-                //insert
+                insertionsort(tVet->vet,tVet->tam,t,comp,trocas);
                 break;
             case 'e':
                 //shellsort

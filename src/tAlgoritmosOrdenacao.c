@@ -1,35 +1,46 @@
 #include "../include/tAlgoritmosOrdenacao.h"
 
-void selectionsort(int *vet, int tam){
-    int min, aux;
+void selectionsort(int *vet, int tam, int T, int *comp, int *trocas){
+    int max, aux, parador = 0;
     for (int i = 0; i < (tam-1); i++){
-        min = i;
-        for (int j = (i+1); j < tam; j++){
-            if(vet[j] < vet[min]) 
-                min = j;
+        if(parador == T){
+            break;
         }
-        if (i != min) {
+        parador++;
+        max = i;
+        for (int j = (i+1); j < tam; j++){
+            if(vet[j] > vet[max]){
+                max = j;
+                *comp = *comp + 1;
+            } 
+        }
+        if (i != max) {
             aux = vet[i];
-            vet[i] = vet[min];
-            vet[min] = aux;
+            vet[i] = vet[max];
+            vet[max] = aux;
+            *trocas = *trocas + 1;
         }
     }
 }
 
-void insertionsort(int *vet, int tam){
-    int aux;
+void insertionsort(int *vet, int tam, int T, int *comp, int *trocas){
+    int aux,parador = 0;
     for (int i = 1; i < tam; i++) {
+        if(parador == T) break;
+        parador++;
         aux = vet[i];
         int j = i - 1;
-        while (j >= 0 && vet[j] > aux) {
+        while (j >= 0 && vet[j] < aux) {
             vet[j + 1] = vet[j];
             j = j - 1;
+            *comp = *comp + 1;
         }
         vet[j + 1] = aux;
+        *trocas = *trocas + 1;
     }
 }
 
-void shellsort(int* vet, int tam){
+void shellsort(int* vet, int tam, int T){
     int aux;
     int h = 1;
     while(h < tam) {
@@ -49,13 +60,13 @@ void shellsort(int* vet, int tam){
     }
 }
 
-void quicksort(int *vet, int esq, int dir){
+void quicksort(int *vet, int esq, int dir, int T){
     int i, j, x, y;
      
     i = esq;
     j = dir;
     x = vet[(esq + dir) / 2];
-     
+    
     while(i <= j) {
         while(vet[i] < x && i < dir) {
             i++;
@@ -73,14 +84,14 @@ void quicksort(int *vet, int esq, int dir){
     }
      
     if(j > esq) {
-        quicksort(vet, esq, j);
+        quicksort(vet, esq, j, T);
     }
     if(i < dir) {
-        quicksort(vet, i, dir);
+        quicksort(vet, i, dir, T);
     }
 }
 
-void heapsort(int *vet, int n){
+void heapsort(int *vet, int n, int T){
     int i = n / 2, pai, filho, t;
     while(TRUE) {
         if (i > 0) {

@@ -13,7 +13,7 @@ int main(int argv, char **args){
     vetLetras = inicializaVetorChar(qtdLetras(args[1]));
     preencheVetorLetras(vetLetras,args[1]);
     preencheVetorNum(vetNum,args[1]);
-
+    inicializaEspecificacao(vetInt,vetNum,vetLetras,atoi(args[2]),args[3]);
     liberaVetor(vetLetras);
     liberaVetor(vetNum);
     liberaEstrutura(vetInt);

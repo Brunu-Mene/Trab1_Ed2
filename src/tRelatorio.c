@@ -11,7 +11,7 @@ void relatorio2(float tempo, int comp, int trocas){
     printf("Estatísticas gerais:\n");
     printf("Tempo de CPU: 	    %.4f segundos.\n",tempo);
     printf("Comparações:	    %d\n",comp);
-    printf("Trocas:		        %d\n",trocas); 
+    printf("Trocas:             %d\n",trocas); 
 }
 
 void relatorio3(char algoritmo, char* arquivo, int tam, int T, int comp, int trocas, float tempo){
