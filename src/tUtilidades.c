@@ -93,24 +93,23 @@ void liberaEstrutura(tVetorOrdenavel *tVet){
 }
 
 void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetras, int t, char *caminho){
-    int *trocas, *comp;
-    trocas = inicializaVetorInt(1);
-    comp = inicializaVetorInt(1);
-    *trocas = 0;
-    *comp = 0;
+    int vetAux[tVet->tam];
+    memcpy(vetAux, tVet->vet, sizeof(vetAux));
+    int trocas, comp;
     //roda o algoritmo
     for(int i=0; i < strlen(vetLetras) ;i++){
         time_t t_init,t_final;
         t_init = time(NULL);
+        trocas = comp = 0;
         switch (vetLetras[i]){
             case 'a':
                 //executa todos os métodos
                 break;
             case 's':
-                selectionsort(tVet->vet,tVet->tam,t,comp,trocas);
+                selectionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 break;
             case 'i':
-                insertionsort(tVet->vet,tVet->tam,t,comp,trocas);
+                insertionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 break;
             case 'e':
                 //shellsort
@@ -135,19 +134,18 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
                     relatorio1(tVet->vet,t);
                     break;
                 case '2':
-                    relatorio2(difftime(t_final,t_init),*comp,*trocas);
+                    relatorio2(difftime(t_final,t_init),comp,trocas);
                     break;
                 case '3':
-                    relatorio3(vetLetras[i],caminho,tVet->tam,t,*comp,*trocas,difftime(t_final,t_init));
+                    relatorio3(vetLetras[i],caminho,tVet->tam,t,comp,trocas,difftime(t_final,t_init));
                     break;
 
                 default:
                     break;
             }
         }
+        memcpy(tVet->vet, vetAux, sizeof(tVet->vet));
     }
-    liberaVetor(trocas);
-    liberaVetor(comp);
 }
 
 static int ehNumero(char c){

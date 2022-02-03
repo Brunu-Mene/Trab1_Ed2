@@ -11,14 +11,14 @@ void selectionsort(int *vet, int tam, int T, int *comp, int *trocas){
         for (int j = (i+1); j < tam; j++){
             if(vet[j] > vet[max]){
                 max = j;
-                *comp = *comp + 1;
+                (*comp)++;
             } 
         }
         if (i != max) {
             aux = vet[i];
             vet[i] = vet[max];
             vet[max] = aux;
-            *trocas = *trocas + 1;
+            (*trocas)++;
         }
     }
 }
@@ -33,10 +33,10 @@ void insertionsort(int *vet, int tam, int T, int *comp, int *trocas){
         while (j >= 0 && vet[j] < aux) {
             vet[j + 1] = vet[j];
             j = j - 1;
-            *comp = *comp + 1;
+            (*comp)++;
         }
         vet[j + 1] = aux;
-        *trocas = *trocas + 1;
+        (*trocas)++;
     }
 }
 

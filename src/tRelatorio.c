@@ -5,13 +5,14 @@ void relatorio1(int *vet, int t){
     for(int i = 0; i < t; i++){
         printf("%d\n",vet[i]);
     }
+    printf("\n");
 }
 
 void relatorio2(float tempo, int comp, int trocas){
     printf("Estatísticas gerais:\n");
     printf("Tempo de CPU: 	    %.4f segundos.\n",tempo);
     printf("Comparações:	    %d\n",comp);
-    printf("Trocas:             %d\n",trocas); 
+    printf("Trocas:             %d\n\n",trocas); 
 }
 
 void relatorio3(char algoritmo, char* arquivo, int tam, int T, int comp, int trocas, float tempo){
@@ -29,5 +30,5 @@ void relatorio3(char algoritmo, char* arquivo, int tam, int T, int comp, int tro
     }else if(algoritmo == 'h'){
         printf("heapsort");
     }
-    printf("  %s  %d  %d  %d   %d   %.5f", arquivo, tam, T, comp, trocas, tempo);
+    printf("  %s  %d    %d      %d        %d      %.5f\n\n", arquivo, tam, T, comp, trocas, tempo);
 }
