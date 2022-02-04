@@ -11,7 +11,7 @@ void insertionsort(int *vet, int tam, int T, int *comp, int *trocas);
 
 void shellsort(int* vet, int tam, int T);
 
-void quicksort(int *vet, int esq, int dir, int T);
+void quickSort(int *vet, int esq, int dir, int *comp, int *trocas, int T);
 
 void heapsort(int *vet, int n, int T);
 

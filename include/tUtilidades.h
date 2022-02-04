@@ -37,7 +37,6 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
 
 int* inicializaVetorInt(int tam);
 
-
-
+static void transfereConteudo(int *vetReceb, int *vetDistr, int tam);
 
 #endif

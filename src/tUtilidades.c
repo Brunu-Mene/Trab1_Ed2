@@ -93,8 +93,9 @@ void liberaEstrutura(tVetorOrdenavel *tVet){
 }
 
 void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetras, int t, char *caminho){
-    int vetAux[tVet->tam];
-    memcpy(vetAux, tVet->vet, sizeof(vetAux));
+    int *vetAux = inicializaVetorInt(tVet->tam);
+    transfereConteudo(vetAux, tVet->vet, tVet->tam);
+
     int trocas, comp;
     //roda o algoritmo
     for(int i=0; i < strlen(vetLetras) ;i++){
@@ -115,7 +116,7 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
                 //shellsort
                 break;
             case 'q':
-                //quicksort
+                quickSort(tVet->vet,0,tVet->tam-1,&comp,&trocas,t);
                 break;
             case 'h':
                 //heapsort
@@ -144,7 +145,14 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
                     break;
             }
         }
-        memcpy(tVet->vet, vetAux, sizeof(tVet->vet));
+        transfereConteudo(tVet->vet, vetAux, tVet->tam);
+    }
+    liberaVetor(vetAux);
+}
+
+static void transfereConteudo(int *vetReceb, int *vetDistr, int tam){
+    for(int i=0; i<tam ;i++){
+        vetReceb[i] = vetDistr[i];
     }
 }
 

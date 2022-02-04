@@ -36,6 +36,7 @@ void insertionsort(int *vet, int tam, int T, int *comp, int *trocas){
             (*comp)++;
         }
         vet[j + 1] = aux;
+        (*comp)++;
         (*trocas)++;
     }
 }
@@ -60,62 +61,78 @@ void shellsort(int* vet, int tam, int T){
     }
 }
 
-void quicksort(int *vet, int esq, int dir, int T){
-    int i, j, x, y;
-     
-    i = esq;
-    j = dir;
-    x = vet[(esq + dir) / 2];
-    
-    while(i <= j) {
-        while(vet[i] < x && i < dir) {
+void swap(int* a, int* b){
+    int t = *a;
+    *a = *b;
+    *b = t;
+}
+
+int partition (int arr[], int low, int high, int *comp, int *trocas){
+    int pivot = arr[high];
+    int i = (low - 1);
+    for (int j = low; j <= high- 1; j++){
+        if (arr[j] >= pivot){
+            (*comp)++;
             i++;
-        }
-        while(vet[j] > x && j > esq) {
-            j--;
-        }
-        if(i <= j) {
-            y = vet[i];
-            vet[i] = vet[j];
-            vet[j] = y;
-            i++;
-            j--;
+            swap(&arr[i], &arr[j]);
+            (*trocas)++;
         }
     }
-     
-    if(j > esq) {
-        quicksort(vet, esq, j, T);
-    }
-    if(i < dir) {
-        quicksort(vet, i, dir, T);
+    swap(&arr[i + 1], &arr[high]);
+    (*trocas)++;
+
+    return (i + 1);
+}
+
+
+void quickSort(int *vet, int esq, int dir, int *comp, int *trocas ,int T){
+    if (esq < dir){
+        (*comp)++;
+        int pi = partition(vet, esq, dir, comp, trocas);
+        quickSort(vet, esq, pi - 1, comp, trocas, T);
+        if(pi < T-1)
+            quickSort(vet, pi + 1, dir, comp, trocas, T);
     }
 }
 
-void heapsort(int *vet, int n, int T){
-    int i = n / 2, pai, filho, t;
-    while(TRUE) {
-        if (i > 0) {
-            i--;
-            t = vet[i];
-        } else {
-            n--;
-            if (n <= 0) return;
-            t = vet[n];
-            vet[n] = vet[0];
-        }
-        pai = i;
-        filho = i * 2 + 1;
-        while (filho < n) {
-            if ((filho + 1 < n)  &&  (vet[filho + 1] > vet[filho]))
-                filho++;
-            if (vet[filho] > t) {
-                vet[pai] = vet[filho];
-                pai = filho;
-                filho = pai * 2 + 1;
-            } else {
-                break;
-            }
-        }
-        vet[pai] = t;
+// To heapify a subtree rooted with node i which is
+// an index in arr[]. n is size of heap
+void heapify(int arr[], int n, int i)
+{
+    int largest = i; // Initialize largest as root
+    int l = 2 * i + 1; // left = 2*i + 1
+    int r = 2 * i + 2; // right = 2*i + 2
+ 
+    // If left child is larger than root
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+ 
+    // If right child is larger than largest so far
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+ 
+    // If largest is not root
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+ 
+        // Recursively heapify the affected sub-tree
+        heapify(arr, n, largest);
+    }
+}
+ 
+// main function to do heap sort
+void heapSort(int arr[], int n, int T)
+{
+    // Build heap (rearrange array)
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+ 
+    // One by one extract an element from heap
+    for (int i = n - 1; i >= n - T; i--) {
+        // Move current root to end
+        swap(arr[0], arr[i]);
+ 
+        // call max heapify on the reduced heap
+        heapify(arr, i, 0);
     }
 }
