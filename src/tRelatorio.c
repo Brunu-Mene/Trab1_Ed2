@@ -30,5 +30,5 @@ void relatorio3(char algoritmo, char* arquivo, int tam, int T, int comp, int tro
     }else if(algoritmo == 'h'){
         printf("heapsort");
     }
-    printf("  %s  %d    %d      %d        %d      %.5f\n\n", arquivo, tam, T, comp, trocas, tempo);
+    printf("  %s  %d    %d      %d       %d     %.5f\n\n", arquivo, tam, T, comp, trocas, tempo);
 }

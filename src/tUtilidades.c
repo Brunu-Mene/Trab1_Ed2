@@ -100,8 +100,8 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
     //roda o algoritmo
     for(int i=0; i < strlen(vetLetras) ;i++){
         time_t t_init,t_final;
-        t_init = time(NULL);
         trocas = comp = 0;
+        t_init = time(NULL);
         switch (vetLetras[i]){
             case 'a':
                 //executa todos os métodos
@@ -113,23 +113,19 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
                 insertionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 break;
             case 'e':
-                //shellsort
+                shellsort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 break;
             case 'q':
                 quickSort(tVet->vet,0,tVet->tam-1,&comp,&trocas,t);
                 break;
             case 'h':
-                //heapsort
+                heapsort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 break;
             default:
                 break;
         }
-
-        //imprime
+        t_final = time(NULL);
         for(int j=0; j<strlen(vetNum) ;j++){
-            //sleep(10);
-            t_final = time(NULL);
-            //printf("Tempo de execucao: %.2f", difftime(t_final,t_init));
             switch (vetNum[j]){
                 case '1':
                     relatorio1(tVet->vet,t);
