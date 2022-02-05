@@ -35,6 +35,8 @@ void liberaEstrutura(tVetorOrdenavel *tVet);
 
 void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetras, int t, char *caminho);
 
+void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho, int t, int comp, int trocas,float tempo);
+
 int* inicializaVetorInt(int tam);
 
 static void transfereConteudo(int *vetReceb, int *vetDistr, int tam);

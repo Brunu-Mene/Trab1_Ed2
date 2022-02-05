@@ -7,47 +7,19 @@ void swap(int* a, int* b, int *trocas){
     (*trocas)++;
 }
 
-int partition (int arr[], int low, int high, int *comp, int *trocas){
-    int pivot = arr[high];
+int partition (int *vet, int low, int high, int *comp, int *trocas){
+    int pivot = vet[high];
     int i = (low - 1);
     for (int j = low; j <= high- 1; j++){
-        if (arr[j] >= pivot){
+        if (vet[j] >= pivot){
             i++;
-            swap(&arr[i], &arr[j], trocas);
+            swap(&vet[i], &vet[j], trocas);
         }
         (*comp)++;
     }
-    swap(&arr[i + 1], &arr[high], trocas);
+    swap(&vet[i + 1], &vet[high], trocas);
 
     return (i + 1);
-}
-
-// To heapify a subtree rooted with node i which is
-// an index in arr[]. n is size of heap
-void heapify(int *vet, int n, int i, int *comp,int *trocas)
-{
-    int largest = i; // Initialize largest as root
-    int l = 2 * i + 1; // left = 2*i + 1
-    int r = 2 * i + 2; // right = 2*i + 2
- 
-    // If left child is larger than root
-    if (l < n && vet[l] > vet[largest]){
-        largest = l;
-    }
- 
-    // If right child is larger than largest so far
-    if (r < n && vet[r] > vet[largest]){
-        largest = r;
-    }
- 
-    // If largest is not root
-    (*comp) += 3;
-    if (largest != i) {
-        swap(&vet[i], &vet[largest], trocas);
- 
-        // Recursively heapify the affected sub-tree
-        heapify(vet, n, largest, comp, trocas);
-    }
 }
 
 void selectionsort(int *vet, int tam, int T, int *comp, int *trocas){
@@ -88,30 +60,32 @@ void insertionsort(int *vet, int tam, int T, int *comp, int *trocas){
     }
 }
 
-void shellsort(int* vet, int tam, int T, int *comp, int *trocas){
-    int aux;
-    int h = 1;
-    while(h < tam) {
-        h = 3*h+1;
-    }
-    while (h > 0) {
-        for(int i = h; i < tam; i++) {
-            aux = vet[i];
-            int j = i;
-            while (j > h-1 && aux <= vet[j - h]) {
-                vet[j] = vet[j - h];
-                j = j - h;
+
+void shellSort(int *vet, int tam, int t,int *comp, int *trocas){
+    int i , j , value;
+    int gap = 1;
+    
+    do {
+        gap = 3*gap+1;
+    } while(gap < tam);
+    
+    do {
+        gap /= 3;
+        for(i = gap; i < tam; i++) {
+            value = vet[i];
+            j = i - gap;
+                
+            while (j >= 0 && value > vet[j]) {
                 (*comp)++;
-                (*trocas)++;
+                vet[j + gap] = vet[j];
+                j -= gap;
             }
-            vet[j] = aux;
             (*trocas)++;
+            vet[j + gap] = value;
         }
-        h = h/3;
-    }
+    }while(gap > 1);
 }
 
-//o somatorio de comp e trocas ta errado!!! (ou nao)
 void quickSort(int *vet, int esq, int dir, int *comp, int *trocas ,int T){
     if (esq < dir){
         int pi = partition(vet, esq, dir, comp, trocas);
@@ -120,19 +94,37 @@ void quickSort(int *vet, int esq, int dir, int *comp, int *trocas ,int T){
             quickSort(vet, pi + 1, dir, comp, trocas, T);
     }
 }
- 
-// main function to do heap sort
-void heapSort(int *vet, int n, int T, int *comp, int *trocas){
-    // Build heap (rearrange array)
+
+void heapify(int *vet, int n, int i, int *comp,int *trocas){
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+  
+    if (left < n && vet[left] > vet[largest])
+        largest = left;
+  
+    if (right < n && vet[right] > vet[largest])
+        largest = right;
+  
+    // Swap and continue heapifying if root is not largest
+    (*comp)+=2;
+    if (largest != i){
+        swap(&vet[i], &vet[largest],trocas);
+        heapify(vet, n, largest,comp,trocas);
+    }
+}
+
+void heapSort(int *vet, int n, int T , int *comp,int *trocas) {
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(vet, n, i, comp, trocas);
- 
-    // One by one extract an element from heap
+      heapify(vet, n, i, comp,trocas);
     for (int i = n - 1; i >= n - T; i--) {
-        // Move current root to end
         swap(&vet[0], &vet[i], trocas);
- 
-        // call max heapify on the reduced heap
-        heapify(vet, i, 0, comp, trocas);
+        heapify(vet, i, 0, comp,trocas);
+    }
+    for(int i = n - 1, j = 0; i >= n - T; i--, j++){
+        if(i < n/2){
+            break;
+        }
+        swap(&vet[j],&vet[i],trocas);
     }
 }

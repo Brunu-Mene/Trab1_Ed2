@@ -92,6 +92,8 @@ void liberaEstrutura(tVetorOrdenavel *tVet){
     free(tVet);
 }
 
+
+//como fica isso daqui
 void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetras, int t, char *caminho){
     int *vetAux = inicializaVetorInt(tVet->tam);
     transfereConteudo(vetAux, tVet->vet, tVet->tam);
@@ -104,7 +106,32 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
         t_init = time(NULL);
         switch (vetLetras[i]){
             case 'a':
-                //executa todos os métodos
+                selectionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
+                t_final = time(NULL);
+                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'s',caminho,t,comp,trocas,difftime(t_final,t_init));
+                transfereConteudo(tVet->vet, vetAux, tVet->tam);
+
+                t_init = time(NULL);
+                insertionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
+                t_final = time(NULL);
+                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'i',caminho,t,comp,trocas,difftime(t_final,t_init));
+                transfereConteudo(tVet->vet, vetAux, tVet->tam);
+
+                t_init = time(NULL);
+                shellSort(tVet->vet,tVet->tam,t,&comp,&trocas);
+                t_final = time(NULL);
+                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'e',caminho,t,comp,trocas,difftime(t_final,t_init));
+                transfereConteudo(tVet->vet, vetAux, tVet->tam);
+
+                t_init = time(NULL);
+                quickSort(tVet->vet,0,tVet->tam-1,&comp,&trocas,t);
+                t_final = time(NULL);
+                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'q',caminho,t,comp,trocas,difftime(t_final,t_init));
+                transfereConteudo(tVet->vet, vetAux, tVet->tam);
+
+                t_init = time(NULL);
+                heapSort(tVet->vet,tVet->tam,t,&comp,&trocas);
+                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'h',caminho,t,comp,trocas,difftime(t_final,t_init));
                 break;
             case 's':
                 selectionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
@@ -113,37 +140,41 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
                 insertionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 break;
             case 'e':
-                shellsort(tVet->vet,tVet->tam,t,&comp,&trocas);
+                shellSort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 break;
             case 'q':
                 quickSort(tVet->vet,0,tVet->tam-1,&comp,&trocas,t);
                 break;
             case 'h':
-                heapsort(tVet->vet,tVet->tam,t,&comp,&trocas);
+                heapSort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 break;
             default:
                 break;
         }
         t_final = time(NULL);
-        for(int j=0; j<strlen(vetNum) ;j++){
-            switch (vetNum[j]){
-                case '1':
-                    relatorio1(tVet->vet,t);
-                    break;
-                case '2':
-                    relatorio2(difftime(t_final,t_init),comp,trocas);
-                    break;
-                case '3':
-                    relatorio3(vetLetras[i],caminho,tVet->tam,t,comp,trocas,difftime(t_final,t_init));
-                    break;
-
-                default:
-                    break;
-            }
-        }
+        chamaRelatorios(tVet->vet,tVet->tam,vetNum,vetLetras[i],caminho,t,comp,trocas,difftime(t_final,t_init));
         transfereConteudo(tVet->vet, vetAux, tVet->tam);
     }
     liberaVetor(vetAux);
+}
+
+void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho, int t, int comp, int trocas,float tempo){
+    for(int j=0; j<strlen(vetNum) ;j++){
+        switch (vetNum[j]){
+            case '1':
+                relatorio1(vet,t);
+                break;
+            case '2':
+                relatorio2(tempo,comp,trocas);
+                break;
+            case '3':
+                relatorio3(letra,caminho,tam,t,comp,trocas,tempo);
+                break;
+
+            default:
+                break;
+        }
+    }
 }
 
 static void transfereConteudo(int *vetReceb, int *vetDistr, int tam){
