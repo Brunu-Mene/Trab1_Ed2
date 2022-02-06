@@ -17,9 +17,7 @@ void relatorio2(float tempo, int comp, int trocas){
 
 void relatorio3(char algoritmo, char* arquivo, int tam, int T, int comp, int trocas, float tempo){
     printf("[algoritmo  arquivo	tam.	T(top)	comp. 	trocas	tempo(s)]\n");
-    if(algoritmo == 'a'){
-        printf("todos");
-    }else if(algoritmo == 's'){
+    if(algoritmo == 's'){
         printf("seleção");
     }else if(algoritmo == 'i'){
         printf("inserção");
@@ -27,7 +25,7 @@ void relatorio3(char algoritmo, char* arquivo, int tam, int T, int comp, int tro
         printf("shellsort");
     }else if(algoritmo == 'q'){
         printf("quicksort");
-    }else if(algoritmo == 'h'){
+    }else if(algoritmo == 'h' || algoritmo == 'a'){
         printf("heapsort");
     }
     printf("  %s  %d    %d      %d       %d     %.5f\n\n", arquivo, tam, T, comp, trocas, tempo);

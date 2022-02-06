@@ -131,7 +131,6 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
 
                 t_init = time(NULL);
                 heapSort(tVet->vet,tVet->tam,t,&comp,&trocas);
-                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'h',caminho,t,comp,trocas,difftime(t_final,t_init));
                 break;
             case 's':
                 selectionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
