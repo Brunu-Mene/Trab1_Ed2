@@ -1,13 +1,13 @@
 #include "../include/tAlgoritmosOrdenacao.h"
 
-void swap(int* a, int* b, int *trocas){
+void swap(int* a, int* b, long long int *trocas){
     int t = *a;
     *a = *b;
     *b = t;
     (*trocas)++;
 }
 
-int partition (int *vet, int low, int high, int *comp, int *trocas){
+int partition (int *vet, int low, int high, long long int *comp, long long int *trocas){
     int pivot = vet[high];
     int i = (low - 1);
     for (int j = low; j <= high- 1; j++){
@@ -22,7 +22,7 @@ int partition (int *vet, int low, int high, int *comp, int *trocas){
     return (i + 1);
 }
 
-void selectionsort(int *vet, int tam, int T, int *comp, int *trocas){
+void selectionsort(int *vet, int tam, int T, long long int *comp, long long int *trocas){
     int max, aux, parador = 0;
     for (int i = 0; i < (tam-1); i++){
         if(parador == T) break;
@@ -40,7 +40,7 @@ void selectionsort(int *vet, int tam, int T, int *comp, int *trocas){
     }
 }
 
-void insertionsort(int *vet, int tam, int T, int *comp, int *trocas){
+void insertionsort(int *vet, int tam, int T, long long int *comp, long long int *trocas){
     int i, j, k;
     for (i = 0; i < T; i++){ 
         int min = i;
@@ -53,7 +53,6 @@ void insertionsort(int *vet, int tam, int T, int *comp, int *trocas){
         k = vet[min];
         for (j = min; j > i; j--){
             vet[j] = vet[j-1];
-            (*trocas)++;
         }
         vet[i] = k;
         (*trocas)++;
@@ -61,7 +60,7 @@ void insertionsort(int *vet, int tam, int T, int *comp, int *trocas){
 }
 
 
-void shellSort(int *vet, int tam, int t,int *comp, int *trocas){
+void shellSort(int *vet, int tam, int t, long long int *comp, long long int *trocas){
     int i , j , value;
     int gap = 1;
     
@@ -86,7 +85,7 @@ void shellSort(int *vet, int tam, int t,int *comp, int *trocas){
     }while(gap > 1);
 }
 
-void quickSort(int *vet, int esq, int dir, int *comp, int *trocas ,int T){
+void quickSort(int *vet, int esq, int dir, long long int *comp, long long int *trocas ,int T){
     if (esq < dir){
         int pi = partition(vet, esq, dir, comp, trocas);
         quickSort(vet, esq, pi - 1, comp, trocas, T);
@@ -95,7 +94,7 @@ void quickSort(int *vet, int esq, int dir, int *comp, int *trocas ,int T){
     }
 }
 
-void heapify(int *vet, int n, int i, int *comp,int *trocas){
+void heapify(int *vet, int n, int i, long long int *comp, long long int *trocas){
     int largest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
@@ -106,7 +105,6 @@ void heapify(int *vet, int n, int i, int *comp,int *trocas){
     if (right < n && vet[right] > vet[largest])
         largest = right;
   
-    // Swap and continue heapifying if root is not largest
     (*comp)+=2;
     if (largest != i){
         swap(&vet[i], &vet[largest],trocas);
@@ -114,7 +112,7 @@ void heapify(int *vet, int n, int i, int *comp,int *trocas){
     }
 }
 
-void heapSort(int *vet, int n, int T , int *comp,int *trocas) {
+void heapSort(int *vet, int n, int T , long long int *comp, long long int *trocas) {
     for (int i = n / 2 - 1; i >= 0; i--)
       heapify(vet, n, i, comp,trocas);
     for (int i = n - 1; i >= n - T; i--) {

@@ -35,7 +35,7 @@ char *inicializaVetorChar(int tam){
     return vet;
 }
 
-static int* inicializaVetorInt(int tam){
+int* inicializaVetorInt(int tam){
     int *vet = (int *) malloc(sizeof(int)*tam);
     if(vet == NULL){
         printf("Erro na alocação do vetor de int!\n");
@@ -98,38 +98,37 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
     int *vetAux = inicializaVetorInt(tVet->tam);
     transfereConteudo(vetAux, tVet->vet, tVet->tam);
 
-    int trocas, comp;
-    //roda o algoritmo
+    long long int trocas, comp;
     for(int i=0; i < strlen(vetLetras) ;i++){
-        time_t t_init,t_final;
+        clock_t t_init,t_final;
         trocas = comp = 0;
-        t_init = time(NULL);
+        t_init = clock();
         switch (vetLetras[i]){
             case 'a':
                 selectionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
-                t_final = time(NULL);
-                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'s',caminho,t,comp,trocas,difftime(t_final,t_init));
+                t_final = clock();
+                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'s',caminho,t,comp,trocas,(float)(t_final - t_init)/1000000);
                 transfereConteudo(tVet->vet, vetAux, tVet->tam);
 
-                t_init = time(NULL);
+                t_init = clock();
                 insertionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
-                t_final = time(NULL);
-                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'i',caminho,t,comp,trocas,difftime(t_final,t_init));
+                t_final = clock();
+                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'i',caminho,t,comp,trocas,(float)(t_final - t_init)/1000000);
                 transfereConteudo(tVet->vet, vetAux, tVet->tam);
 
-                t_init = time(NULL);
+                t_init = clock();
                 shellSort(tVet->vet,tVet->tam,t,&comp,&trocas);
-                t_final = time(NULL);
-                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'e',caminho,t,comp,trocas,difftime(t_final,t_init));
+                t_final = clock();
+                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'e',caminho,t,comp,trocas,(float)(t_final - t_init)/1000000);
                 transfereConteudo(tVet->vet, vetAux, tVet->tam);
 
-                t_init = time(NULL);
+                t_init = clock();
                 quickSort(tVet->vet,0,tVet->tam-1,&comp,&trocas,t);
-                t_final = time(NULL);
-                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'q',caminho,t,comp,trocas,difftime(t_final,t_init));
+                t_final = clock();
+                chamaRelatorios(tVet->vet,tVet->tam,vetNum,'q',caminho,t,comp,trocas,(float)(t_final - t_init)/1000000);
                 transfereConteudo(tVet->vet, vetAux, tVet->tam);
 
-                t_init = time(NULL);
+                t_init = clock();
                 heapSort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 break;
             case 's':
@@ -150,14 +149,14 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
             default:
                 break;
         }
-        t_final = time(NULL);
-        chamaRelatorios(tVet->vet,tVet->tam,vetNum,vetLetras[i],caminho,t,comp,trocas,difftime(t_final,t_init));
+        t_final = clock();
+        chamaRelatorios(tVet->vet,tVet->tam,vetNum,vetLetras[i],caminho,t,comp,trocas,(float)(t_final - t_init)/1000000);
         transfereConteudo(tVet->vet, vetAux, tVet->tam);
     }
     liberaVetor(vetAux);
 }
 
-void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho, int t, int comp, int trocas,float tempo){
+void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho, int t, long long int comp, long long int trocas,float tempo){
     for(int j=0; j<strlen(vetNum) ;j++){
         switch (vetNum[j]){
             case '1':
@@ -176,19 +175,19 @@ void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho,
     }
 }
 
-static void transfereConteudo(int *vetReceb, int *vetDistr, int tam){
+void transfereConteudo(int *vetReceb, int *vetDistr, int tam){
     for(int i=0; i<tam ;i++){
         vetReceb[i] = vetDistr[i];
     }
 }
 
-static int ehNumero(char c){
+int ehNumero(char c){
     if(c > '0' && c <= '3') 
         return TRUE;
     return FALSE;
 }
 
-static int ehLetra(char c){
+int ehLetra(char c){
     if((c >= 'a' && c <= 'z') || (c >='A' && c <='Z')) 
         return TRUE;
     return FALSE;
