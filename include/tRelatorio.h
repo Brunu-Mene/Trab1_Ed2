@@ -16,7 +16,7 @@ void relatorio1(int *vet, int t);
 * @param comp: Inteiro com a quantidade de comparações;
 * @param trocas: Inteiro com a quantidade de trocas;;
 */
-void relatorio2(float tempo, long long int comp, long long int trocas);
+void relatorio2(float tempo, unsigned long int comp, unsigned long int trocas);
 
 /**
 * @brief: Função para imprimir dados/estatísticas separados por tab;
@@ -28,7 +28,7 @@ void relatorio2(float tempo, long long int comp, long long int trocas);
 * @param trocas: quantidade de trocas de uma ordenação;
 * @param tempo: tempo gasto pela função de ordenação;
 */
-void relatorio3(char algoritmo, char* arquivo, int tam, int T, long long int comp, long long int trocas, float tempo);
+void relatorio3(char algoritmo, char* arquivo, int tam, int T, unsigned long int comp, unsigned long int trocas, float tempo);
 
 
 #endif

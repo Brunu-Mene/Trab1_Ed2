@@ -98,7 +98,7 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
     int *vetAux = inicializaVetorInt(tVet->tam);
     transfereConteudo(vetAux, tVet->vet, tVet->tam);
 
-    long long int trocas, comp;
+    unsigned long int trocas, comp;
     for(int i=0; i < strlen(vetLetras) ;i++){
         clock_t t_init,t_final;
         trocas = comp = 0;
@@ -109,24 +109,28 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
                 t_final = clock();
                 chamaRelatorios(tVet->vet,tVet->tam,vetNum,'s',caminho,t,comp,trocas,(float)(t_final - t_init)/1000000);
                 transfereConteudo(tVet->vet, vetAux, tVet->tam);
+                trocas = comp = 0;
 
                 t_init = clock();
                 insertionsort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 t_final = clock();
                 chamaRelatorios(tVet->vet,tVet->tam,vetNum,'i',caminho,t,comp,trocas,(float)(t_final - t_init)/1000000);
                 transfereConteudo(tVet->vet, vetAux, tVet->tam);
+                trocas = comp = 0;
 
                 t_init = clock();
                 shellSort(tVet->vet,tVet->tam,t,&comp,&trocas);
                 t_final = clock();
                 chamaRelatorios(tVet->vet,tVet->tam,vetNum,'e',caminho,t,comp,trocas,(float)(t_final - t_init)/1000000);
                 transfereConteudo(tVet->vet, vetAux, tVet->tam);
+                trocas = comp = 0;
 
                 t_init = clock();
                 quickSort(tVet->vet,0,tVet->tam-1,&comp,&trocas,t);
                 t_final = clock();
                 chamaRelatorios(tVet->vet,tVet->tam,vetNum,'q',caminho,t,comp,trocas,(float)(t_final - t_init)/1000000);
                 transfereConteudo(tVet->vet, vetAux, tVet->tam);
+                trocas = comp = 0;
 
                 t_init = clock();
                 heapSort(tVet->vet,tVet->tam,t,&comp,&trocas);
@@ -156,7 +160,7 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
     liberaVetor(vetAux);
 }
 
-void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho, int t, long long int comp, long long int trocas,float tempo){
+void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho, int t, unsigned long int comp, unsigned long int trocas,float tempo){
     for(int j=0; j<strlen(vetNum) ;j++){
         switch (vetNum[j]){
             case '1':

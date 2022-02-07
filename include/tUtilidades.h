@@ -108,7 +108,7 @@ void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetra
 * @param trocas: quantidade de trocas de uma ordenação;
 * @param tempo: tempo gasto pela função de ordenação;
 */
-void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho, int t, long long int comp, long long int trocas,float tempo);
+void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho, int t, unsigned long int comp, unsigned long int trocas,float tempo);
 
 /**
 * @brief:  Recebe dois ponteiros de inteiros e copia o conteúdo do ponteiro vetReceb para o ponteiro vetDistr;
