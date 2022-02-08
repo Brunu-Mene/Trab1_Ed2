@@ -97,20 +97,6 @@ void liberaEstrutura(tVetorOrdenavel *tVet);
 void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetras, int t, char *caminho);
 
 /**
-* @brief: Função responsável por chamar as funções de imprimir os relatórios;
-* @param vet: Vetor de inteiros que irá receber o conteúdo;
-* @param tam: Inteiro com o tamanho do vetor de dados;
-* @param vetNum: String contendo os comandos de inmpressão;
-* @param letra: Letra inicial do algoritmo de ordenação a ser chamado;
-* @param caminho: caminho do arquivo a ser lido;
-* @param t: quantidade top a ser ordenado;
-* @param comp: quantidade de comparações de uma ordenação;
-* @param trocas: quantidade de trocas de uma ordenação;
-* @param tempo: tempo gasto pela função de ordenação;
-*/
-void chamaRelatorios(int *vet, int tam, char *vetNum, char letra, char *caminho, int t, unsigned long int comp, unsigned long int trocas,float tempo);
-
-/**
 * @brief:  Recebe dois ponteiros de inteiros e copia o conteúdo do ponteiro vetReceb para o ponteiro vetDistr;
 * @param vetReceb: Vetor de inteiros que irá receber o conteúdo;
 * @param vetDistr: Vetor de inteiros que terá o conteúdo copiado;
