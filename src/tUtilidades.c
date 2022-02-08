@@ -93,7 +93,6 @@ void liberaEstrutura(tVetorOrdenavel *tVet){
 }
 
 
-//como fica isso daqui
 void inicializaEspecificacao(tVetorOrdenavel *tVet, char *vetNum, char *vetLetras, int t, char *caminho){
     int *vetAux = inicializaVetorInt(tVet->tam);
     transfereConteudo(vetAux, tVet->vet, tVet->tam);

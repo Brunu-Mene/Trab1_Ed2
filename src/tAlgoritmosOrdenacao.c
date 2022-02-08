@@ -59,22 +59,21 @@ void selectionsort(int *vet, int tam, int T, unsigned long int *comp, unsigned l
 }
 
 void insertionsort(int *vet, int tam, int T, unsigned long int *comp, unsigned long int *trocas){
-    int i, j, k;
-    for (i = 0; i < T; i++){ 
-        int min = i;
-        for (j = i+1; j < tam; j++){
-            if (vet[j] > vet[min]){
-                min = j;
-            }
+    int i, key, j;
+    for (i = 1; i < tam; i++){
+        key = vet[i];
+        if (i > T - 1) 
+            j = T - 1;
+        else 
+            j = i - 1;
+        while (j >= 0 && vet[j] < key){
+            vet[j + 1] = vet[j];
+            j = j - 1;
             (*comp)++;
         }
         (*comp)++;
-        k = vet[min];
-        for (j = min; j > i; j--){
-            vet[j] = vet[j-1];
-        }
-        vet[i] = k;
         (*trocas)++;
+        vet[j + 1] = key;
     }
 }
 
