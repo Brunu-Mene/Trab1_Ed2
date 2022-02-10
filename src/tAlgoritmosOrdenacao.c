@@ -41,9 +41,8 @@ void heapify(int *vet, int n, int i, unsigned long int *comp, unsigned long int 
 }
 
 void selectionsort(int *vet, int tam, int T, unsigned long int *comp, unsigned long int *trocas){
-    int max, aux, parador = 0;
-    for (int i = 0; i < (tam-1); i++){
-        if(parador == T) break;
+    int max, aux;
+    for (int i = 0; i < T; i++){
         max = i;
         for (int j = (i+1); j < tam; j++){
             if(vet[j] > vet[max]){
@@ -52,7 +51,6 @@ void selectionsort(int *vet, int tam, int T, unsigned long int *comp, unsigned l
             (*comp)++;
         }
         if (i != max) {
-            parador++;
             swap(&vet[i],&vet[max],trocas);
         }
     }

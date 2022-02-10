@@ -16,7 +16,7 @@ void relatorio2(float tempo, unsigned long int comp, unsigned long int trocas){
 }
 
 void relatorio3(char algoritmo, char* arquivo, int tam, int T, unsigned long int comp, unsigned long int trocas, float tempo){
-    printf("[algoritmo\tarquivo\t\t\ttam.\tT(top)\tcomp.\ttrocas\ttempo(s)]\n");
+    printf("[algoritmo\tarquivo\t\t\t\ttam.\tT(top)\tcomp.\t\ttrocas\ttempo(s)]\n");
     if(algoritmo == 's'){
         printf(" seleção\t");
     }else if(algoritmo == 'i'){
@@ -28,5 +28,5 @@ void relatorio3(char algoritmo, char* arquivo, int tam, int T, unsigned long int
     }else if(algoritmo == 'h' || algoritmo == 'a'){
         printf(" heapsort\t");
     }
-    printf("%s\t%d\t%d\t%lu\t%lu\t%.5f\n\n", arquivo, tam, T, comp, trocas, tempo);
+    printf("%s\t%d\t%d\t%lu\t\t%lu\t%.5f\n\n", arquivo, tam, T, comp, trocas, tempo);
 }
