@@ -8,7 +8,7 @@ void swap(int* a, int* b, unsigned long int *trocas){
 }
 
 int partition (int *vet, int low, int high, unsigned long int *comp, unsigned long int *trocas){
-    int pivot = vet[high];
+    int pivot = vet[(high+low)/2];
     int i = (low - 1);
     for (int j = low; j <= high- 1; j++){
         if (vet[j] >= pivot){
@@ -57,21 +57,24 @@ void selectionsort(int *vet, int tam, int T, unsigned long int *comp, unsigned l
 }
 
 void insertionsort(int *vet, int tam, int T, unsigned long int *comp, unsigned long int *trocas){
-    int i, key, j;
-    for (i = 1; i < tam; i++){
-        key = vet[i];
-        if (i > T - 1) 
-            j = T - 1;
-        else 
-            j = i - 1;
-        while (j >= 0 && vet[j] < key){
-            vet[j + 1] = vet[j];
-            j = j - 1;
+    int i, j, aux, inicio;
+    for(i = 1; i < tam; i++){
+        aux = vet[i];
+
+        if (i > T-1){
+            inicio = T - 1;
+            if(vet[i] < vet[T])
+                vet[i] = vet[T];
+        }
+        else inicio = i - 1;
+        
+        for(j = inicio; j >= 0 && vet[j] < aux; j--){
             (*comp)++;
+            (*trocas)++;
+            vet[j+1] = vet[j];
         }
         (*comp)++;
-        (*trocas)++;
-        vet[j + 1] = key;
+        vet[j+1] = aux;
     }
 }
 
@@ -92,6 +95,7 @@ void shellSort(int *vet, int tam, int t, unsigned long int *comp, unsigned long 
                 
             while (j >= 0 && value > vet[j]) {
                 (*comp)++;
+                (*trocas)++;
                 vet[j + gap] = vet[j];
                 j -= gap;
             }
