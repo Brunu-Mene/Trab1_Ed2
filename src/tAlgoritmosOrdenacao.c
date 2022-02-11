@@ -100,7 +100,6 @@ void shellSort(int *vet, int tam, int t, unsigned long int *comp, unsigned long 
                 j -= gap;
             }
             (*comp)++;
-            (*trocas)++;
             vet[j + gap] = value;
         }
     }while(gap > 1);
